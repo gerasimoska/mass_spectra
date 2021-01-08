@@ -1,0 +1,243 @@
+body {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  font-family: Lato;
+  height: 100%;
+  margin: auto;
+  // text-shadow: 0 0px 2px black;
+}
+
+#container {
+  float: left;
+  width: 100%;
+  position:relative;
+
+}
+
+.box-input {
+  text-align: center;
+}
+
+.box-input svg {
+  width: 3rem;
+  vertical-align: middle;
+  fill: currentColor;
+  color: black;
+}
+
+form {
+  color: #black;
+}
+
+input[type="button" i],
+input[type="file" i]::-webkit-file-upload-button {
+  display: none!important;
+}
+
+.box.has-advanced-upload {
+  transition: all .15s ease-in-out, background-color .15s linear;
+}
+
+.box {
+  font-size: 1.25rem;
+  padding: 1rem 0rem;
+  width: 100%;
+}
+
+.js .box-file {
+  width: .1px;
+  height: .1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.box-input label {
+  margin: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: black;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.js .box-file + label * {
+  pointer-events: none;
+}
+
+.js .box-file:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+button {
+  background: #0CE9AF;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+  color: #fff;
+  display: flex;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: auto;
+  margin-top: 0.5rem;
+  overflow: auto;
+  padding: 1rem 1.5rem;
+  background-color: #4CAF50;
+}
+
+button:hover {
+background-color: #4CAF50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .5);
+}
+
+button:active {
+background-color: #4CAF50;
+  box-shadow: none;
+}
+
+.box-uploading {
+  font-style: italic;
+}
+
+.box-success {
+  transition: appear-from-inside .25s ease-in-out;
+}
+
+.box__success {
+  animation: appear-from-inside .25s ease-in-out;
+}
+
+@keyframes appear-from-inside {
+  from {
+    transform: translateY( -50%) scale( 0);
+  }
+  75% {
+    transform: translateY( -50%) scale( 1.1);
+  }
+  to {
+    transform: translateY( -50%) scale( 1);
+  }
+}
+
+.box-restart {
+  font-weight: 700;
+}
+
+input,
+textarea,
+select {
+  border-radius: 0;
+  border: none;
+}
+
+input {
+  line-height: normal;
+}
+
+.box-dragndrop,
+.box-icon,
+.box-uploading,
+.box-success,
+.box-error {
+  display: none;
+}
+
+.box.has-advanced-upload .box-dragndrop {
+  display: inline;
+}
+
+strong {
+  color: #4CAF50;
+}
+
+table {
+    margin-left:auto;
+    margin-right:auto;
+    border: 5px solid white;
+}
+
+th {
+  border-bottom: 2px solid #4CAF50;
+  padding-right:60px;
+}
+
+td {
+  padding-right:60px;
+  vertical-align: top;
+}
+
+.checkboxes {
+  width: 100%;
+}
+
+.ion-mode {
+  margin-top:auto;
+  font-size: 15px;
+}
+
+.ms-type {
+  margin-top:auto;
+  font-size: 15px;
+}
+
+.source-introduction {
+  margin-top:auto;
+  font-size: 15px;
+}
+
+.instrument-types {
+  margin-top:auto;
+  font-size: 15px;
+}
+
+
+.library {
+  margin-top:auto;
+  font-size: 15px;
+}
+
+.input-type {
+  margin-top:auto;
+  font-size: 15px;
+}
+
+#tolerance {
+  border: 1px solid black;
+  margin-left:20px;
+  width:100px;
+}
+
+.massSpectraLibrary {
+  margin-top:auto;
+  font-size: 15px;
+}
+
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  //position: fixed;
+  overflow: visible;
+  display: inline-flex;
+  justify-content: center;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 45px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #4CAF50;
+  color: black;
+}

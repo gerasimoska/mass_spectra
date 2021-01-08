@@ -1,0 +1,5 @@
+requirements.txt
+batch/__pycache__/
+chemoinformatics/__pycache__/
+db.sqlite3
+media/

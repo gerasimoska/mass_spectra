@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+        <!-- fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css">
+
+        <!-- favicon icon -->
+        <link rel="icon" href="https://cdn.iconscout.com/icon/free/png-256/person-1767893-1502146.png">
+
+        <title>MSL-ST</title>
+
+        <style>
+
+            body {
+                font-family: 'Cabin', sans-serif;
+            }
+
+            footer{
+                font-size: 14px;
+            }
+
+
+        </style>
+
+    </head>
+    <body>
+
+        <div id="app">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-3 border-info">
+                <a class="w-5 navbar-brand" href="/search">MSL-ST</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/search">Mass Spectra Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/gerasimoska/mass_spectra" target="_blank">GitHub</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/about">About</a>
+                            <span class="sr-only">(current)</span>
+                        </li>
+                        <b-nav-item-dropdown text="Contact Us">
+                            <b-dropdown-item href="https://www.linkedin.com/in/teodora-gerasimoska/"><b-icon class="mr-1" icon="linkedin"></b-icon> Teodora Gerasimoska</b-dropdown-item>
+                            <b-dropdown-item href="https://www.linkedin.com/in/%D0%BCimi-ljoncheva-17a1a6a8/"><b-icon class="mr-1" icon="linkedin"></b-icon> Milka Ljoncheva</b-dropdown-item>
+                            <b-dropdown-item href="https://www.linkedin.com/in/monikasimjanoska/"><b-icon class="mr-1" icon="linkedin"></b-icon> Monika Simjanovska</b-dropdown-item>
+                            <b-dropdown-item href="mailto:teodora.gerasimoska@live.com"><b-icon class="mr-1" icon="envelope"></b-icon> Drop us an email</b-dropdown-item>
+                        </b-nav-item-dropdown>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">About</li>
+                    </ol>
+                </nav>
+
+                <div>
+                    <div>
+                        <b-card header-class="text-uppercase" header="Mass spectrometry" class="d-flex p-2 bd-highlight mb-3">
+                            <b-button v-b-toggle.collapse-1 variant="primary">
+                                <b-icon class="mr-1" icon="info-circle"></b-icon>
+                                Read more
+                            </b-button>
+                            <b-collapse id="collapse-1" class="mt-2">
+                            <div class="h-100">
+                                <ul>
+                                    <li>Mass spectrometry is an analytical method for the identification and quantification of organic compounds by ionization of a sample. The generated ions are separated based on the different trajectories of ions with different mass / charge ratio (m / z ratio) in electric and/or magnetic field. In combination with gas or liquid chromatography, it represents analytical platform of the first choice for the identification and quantification of organic compounds in the environment and biological samples.</li>
+                                </ul>
+                            </div>
+                        </b-card>
+                        <b-card header-class="text-uppercase" header="Organic compounds identification" class="d-flex p-2 bd-highlight mb-3">
+                            <b-button v-b-toggle.collapse-2 variant="primary">
+                                <b-icon class="mr-1" icon="info-circle"></b-icon>
+                                Read more
+                            </b-button>
+                            <b-collapse id="collapse-2" class="mt-2">
+                            <div class="h-100">
+                                <ul>
+                                    <li>The use of chemoinformatics in the identification of new organic compounds using chromatography-based methods and mass spectroscopy is one of the major challenges. Screening of potentially similar compounds and unbiased analysis using methods based on gas / liquid chromatography and mass spectrometry takes place in several steps, the key of which is the identification of the structure of the organic compounds. One of the basic strategies for identifying organic compounds in undirected analysis is the following steps:
+                                        <ol>
+                                            <li>identifying the monoisotope molecular mass and / or molecular formula of the unknown compound based on the experimental mass spectrum; </li>
+                                            <li>generating a list of candidate compounds with the same monosotope molecular mass and / or molecular formula from one or more publicly available compounds databases;
+                                            <li>searching publicly available libraries for mass spectrometry and extracting mass spectra for candidate compounds;</li>
+                                            <li>comparing the experimental mass spectrum with mass spectra of candidate compounds from libraries. The identification of organic compounds in the screening of similar compounds starts from the aforementioned step (2), where instead of a list of candidate compounds from databases, lists of potentially similar compounds generated based on the results of previously published scientific studies and publicly available are used, as well as lists of metabolites identified in biological samples or contaminants identified in environmental samples.</li></li>
+                                        </ol>
+                                    </li>
+                                    <li>The primary limitations of this type of research are the lack of libraries for mass spectrometry with structural information on a large number of compounds, as well as the inability to batch search mass spectra for a large number of data and their retrieval. As a result, analysts often perform this step of identifying organic compounds by hand, which is why this step is time consuming and carries the risk of misidentification due to errors in the extraction of mass spectra. </li>
+                                </ul>
+                            </div>
+                        </b-card>
+                        <b-card header-class="text-uppercase" header="Project aim" class="d-flex p-2 bd-highlight mb-3">
+                            <b-button v-b-toggle.collapse-3 variant="primary">
+                                <b-icon class="mr-1" icon="info-circle"></b-icon>
+                                Read more
+                            </b-button>
+                            <b-collapse id="collapse-3" class="mt-2">
+                            <div class="h-100">
+                                <ul>
+                                    <li>The aim of this project is to generate a tool for automated search and storage of mass spectra from one of the largest publicly available mass spectrometry libraries, <a href="http://mona.fiehnlab.ucdavis.edu/">Mass Bank of North America (MoNa)</a> and <a href="https://massbank.eu/">Mass Bank of Europe</a>. Web scraping is used as a method for extracting data from the websites of MoNa and Mass Bank of Europe. </li>
+                                    <li>The processing of the collected structural identifiers from the metadata (SMILES, InChIKey, molecular mass, etc.), as well as data on the chromatographic-spectroscopic methods used to generate the mass spectra and their storage in a tabular structure are done in <a href="https://www.python.org/">Python</a>, while the web system is made with the <a href="https://www.djangoproject.com/">Django</a> framework. The purpose of the tool is to expeditiously collect a larger amount of data, used in Machine Learning models for molecular analysis. For that purpose, in cooperation with an expert in the field, a user-friendly interface was developed intended for use by researchers with chemical, but also with information background. The tool overcomes the problem of analytical data collection by analysts so far (on a principle-by-component basis), which significantly speeds up the research process. The tool, accompanied by instructions for use, will be available for public use on <a href="https://github.com/gerasimoska">GitHub</a>.</li>
+                                </ul>
+                            </div>
+                        </b-card>
+                    </div>
+                </div>
+                <footer>
+                    If you need additional information please feel free to drop a mail at <a href="mailto:teodora.gerasimoska@live.com"><b-icon class="mr-1" icon="envelope"></b-icon></a> or reach out at <a href="https://www.linkedin.com/in/teodora-gerasimoska/">LinkedIn</a>.
+                </footer>
+                </div>
+
+                </div>
+
+                <!-- [[ options ]] -->
+
+        </div>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+        <!-- <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script> -->
+        <script type="text/javascript">
+            var app = new Vue({
+                el: '#app',
+                delimiters : ['[[',']]'],
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- bootstrap CSS -->
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+        <!-- fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.1/css/all.css">
+
+        <!-- favicon icon -->
+        <link rel="icon" href="https://cdn.iconscout.com/icon/free/png-256/person-1767893-1502146.png">
+
+        <title>MSL-ST</title>
+
+        <style>
+
+            body {
+                font-family: 'Cabin', sans-serif;
+            }
+            
+            footer{
+                font-size: 14px;
+            }
+
+            .spinner-grow {
+                display: none;
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+        <div id="app">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-3 border-info">
+                <a class="w-5 navbar-brand" href="/search">MSL-ST</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/search">
+                                Mass Spectra Search
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/gerasimoska/mass_spectra" target="_blank">GitHub</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                        <b-nav-item-dropdown text="Contact Us">
+                            <b-dropdown-item href="https://www.linkedin.com/in/teodora-gerasimoska/"><b-icon class="mr-1" icon="linkedin"></b-icon> Teodora Gerasimoska</b-dropdown-item>
+                            <b-dropdown-item href="https://www.linkedin.com/in/%D0%BCimi-ljoncheva-17a1a6a8/"><b-icon class="mr-1" icon="linkedin"></b-icon> Milka Ljoncheva</b-dropdown-item>
+                            <b-dropdown-item href="https://www.linkedin.com/in/monikasimjanoska/"><b-icon class="mr-1" icon="linkedin"></b-icon> Monika Simjanovska</b-dropdown-item>
+                            <b-dropdown-item href="mailto:teodora.gerasimoska@live.com"><b-icon class="mr-1" icon="envelope"></b-icon> Drop us an email</b-dropdown-item>
+                        </b-nav-item-dropdown>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+
+                <b-overlay
+                    :show = "processing"
+                    spinner-variant="primary"
+                >
+
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item active" aria-current="page">Mass Spectra Search</li>
+                        </ol>
+                    </nav>
+
+                    <div class="row mb-3">
+
+                        <div class="offset-2 col-2">
+
+                            <b-card header-class="text-uppercase" header="ion mode" class="mb-3">
+                                <ul class="list-unstyled pl-0 mb-0">
+                                    <li v-for="item in options.ion_mode" :key="item.id">
+                                        <b-checkbox v-model="item.value">[[ item.text ]]</b-checkbox>
+                                    </li>
+                                </ul>
+                            </b-card>
+
+                            <b-card header-class="text-uppercase" header="ms type" class="mb-3">
+                                <ul class="list-unstyled pl-0 mb-0">
+                                    <li v-for="item in options.ms_type">
+                                        <b-checkbox v-model="item.value">[[ item.text ]]</b-checkbox>
+                                    </li>
+                                </ul>
+                            </b-card>
+
+                            <b-card header-class="text-uppercase" header="source introduction">
+                                <ul class="list-unstyled pl-0 mb-0">
+                                    <li v-for="item in options.source_introduction">
+                                        <b-checkbox v-model="item.value">[[ item.text ]]</b-checkbox>
+                                    </li>
+                                </ul>
+                            </b-card>
+
+                        </div>
+
+                        <div class="col-2">
+                            <b-overlay
+                                spinner-type="grow"
+                                :show="source == 'mona' || source == null"
+                            >
+                                <b-card header-class="text-uppercase" header="other instrument types">
+                                    <ul class="list-unstyled pl-0 mb-0">
+                                        <li v-for="item in options.other_instrument_types">
+                                            <b-checkbox v-model="item.value">[[ item.text ]]</b-checkbox>
+                                        </li>
+                                    </ul>
+                                </b-card>
+                            </b-overlay>
+                        </div>
+                        <div class="col-2">
+
+                            <b-overlay :show="source == 'massbank_of_europe' || source == null" spinner-type="grow">
+                                <b-card header-class="text-uppercase" header="library" class="mb-3">
+                                    <ul class="list-unstyled pl-0 mb-0">
+                                        <li v-for="item in options.library">
+                                            <b-checkbox v-model="item.value">[[ item.text ]]</b-checkbox>
+                                        </li>
+                                    </ul>
+                                </b-card>
+                            </b-overlay>
+
+                            <b-card header-class="text-uppercase" header="input type">
+                                <ul class="list-unstyled pl-0 mb-0">
+                                    <li v-for="item in options.input_type">
+                                        <b-form-radio v-model="input_type" :value="item.id">
+                                            [[ item.text ]]
+                                        </b-form-radio>
+                                        <b-input
+                                            class="mt-2"
+                                            type="number"
+                                            v-if="input_type == 'exactMass' && item.id == 'exactMass'"
+                                            v-model="tolerance"
+                                            placeholder="Tolerance"
+                                            min="0"
+                                            step="0.1"
+                                        ></b-input>
+                                    </li>
+                                </ul>
+                            </b-card>
+
+                        </div>
+
+                        <div class="col-2">
+
+                            <b-card header-class="text-uppercase" header="mass spectral library" class="mb-3">
+                                <ul class="list-unstyled pl-0 mb-0">
+                                    <li v-for="item in options.mass_spectra_library">
+                                        <b-form-radio v-model="source" :value="item.id">
+                                            [[ item.text ]]
+                                        </b-form-radio>
+                                    </li>
+                                </ul>
+                            </b-card>
+
+                            <b-card header-class="text-uppercase" header="upload file" class="mb-3">
+                                <b-file id="file-default" @change="selectFile($event)"></b-file>
+                            </b-card>
+
+                            <b-button block class="mb-2" variant="primary" @click="submit" :disabled="!file || !source">
+                                <b-icon class="mr-1" icon="search"></b-icon>
+                                Search
+                            </b-button>
+
+                            <b-button
+                                block
+                                class="btn btn-success"
+                                :href="download"
+                                role="button"
+                                v-if="download"
+                            >
+                                <b-icon icon="download" class="mr-1"></b-icon>
+                                Download file
+                            </b-button>
+                            
+                        </div>
+
+                    </div>
+
+                <footer class="fixed-bottom" align='center'>
+                    If you need additional information please feel free to drop a mail at <a href="mailto:teodora.gerasimoska@live.com"><b-icon class="mr-1" icon="envelope"></b-icon></a> or reach out at <a href="https://www.linkedin.com/in/teodora-gerasimoska/">LinkedIn</a>.
+                </footer>
+                </b-overlay>
+
+            </div>
+
+        </div>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/vue@latest/dist/vue.min.js"></script>
+        <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+        <script type="text/javascript">
+
+            Vue.prototype.$request = axios;
+
+            var app = new Vue({
+                el: '#app',
+                delimiters : [
+                    '[[',
+                    ']]'
+                ],
+                data: {
+                    file: null,
+                    source: null,
+                    input_type: null,
+                    tolerance: null,
+                    processing: false,
+                    download: null,
+                    options: {
+                        'ion_mode': [
+                            {
+                                id: 'positive',
+                                text: 'Positive',
+                                value: false
+                            },
+                            {
+                                id: 'negative',
+                                text: 'Negative',
+                                value: false
+                            }
+                        ],
+                        'ms_type': [
+                            {
+                                id: 'MS1',
+                                text: 'MS1',
+                                value: false
+                            },
+
+                            {
+                                id: 'MS2',
+                                text: 'MS2',
+                                value: false
+                            },
+
+                            {
+                                id: 'MS3',
+                                text: 'MS3',
+                                value: false
+                            },
+
+                            {
+                                id: 'MS4',
+                                text: 'MS4',
+                                value: false
+                            }
+                        ],
+                        'source_introduction': [
+                            {
+                                id: 'LC-MS',
+                                text: 'Liquid Chromatography (LC)',
+                                value: false
+                            },
+                            {
+                                id: 'GC-MS',
+                                text: 'Gas Chromatography (GC)',
+                                value: false
+                            },
+                            {
+                                id: 'CE-MS',
+                                text: 'Capillary Electrophoresis (CE)',
+                                value: false
+                            }
+                        ],
+                        'other_instrument_types': [
+                            {
+                                id: 'APCI-ITFT',
+                                text: 'APCI-ITFT',
+                                value: false
+                            },
+                            {
+                                id: 'APCI-ITTOF',
+                                text: 'APCI-ITTOF',
+                                value: false
+                            },
+                            {
+                                id: 'APCI-Q',
+                                text: 'APCI-Q',
+                                value: false
+                            },
+                            {
+                                id: 'CI-B',
+                                text: 'CI-B',
+                                value: false
+                            },
+                            {
+                                id: 'CI-Q',
+                                text: 'CI-Q',
+                                value: false
+                            },
+                            {
+                                id: 'FAB-B',
+                                text: 'FAB-B',
+                                value: false
+                            },
+                            {
+                                id: 'FAB-BE',
+                                text: 'FAB-BE',
+                                value: false
+                            },
+                            {
+                                id: 'FAB-EB',
+                                text: 'FAB-EB',
+                                value: false
+                            },
+                            {
+                                id: 'FD-B',
+                                text: 'FD-B',
+                                value: false
+                            },
+                            {
+                                id: 'FI-B',
+                                text: 'FI-B',
+                                value: false
+                            },
+                            {
+                                id: 'GC-APCI-QTOF',
+                                text: 'GC-APCI-QTOF',
+                                value: false
+                            },
+                            {
+                                id: 'GC-FI-TOF',
+                                text: 'GC-FI-TOF',
+                                value: false
+                            },
+                            {
+                                id: 'LC-APCI-ITFT',
+                                text: 'LC-APCI-ITFT',
+                                value: false
+                            },
+                            {
+                                id: 'LC-APCI-Q',
+                                text: 'LC-APCI-Q',
+                                value: false
+                            },
+                            {
+                                id: 'LC-APCI-QTOF',
+                                text: 'LC-APCI-QTOF',
+                                value: false
+                            },
+                            {
+                                id: 'LC-APPI-QQ',
+                                text: 'LC-APPI-QQ',
+                                value: false
+                            },
+                            {
+                                id: 'MALDI-QIT',
+                                text: 'MALDI-QIT',
+                                value: false
+                            },
+                            {
+                                id: 'MALDI-QITTOF',
+                                text: 'MALDI-QITTOF',
+                                value: false
+                            },
+                            {
+                                id: 'MALDI-TOF',
+                                text: 'MALDI-TOF',
+                                value: false
+                            },
+                            {
+                                id: 'MALDI-TOFTOF',
+                                text: 'MALDI-TOFTOF',
+                                value: false
+                            },
+                            {
+                                id: 'SI-BE',
+                                text: 'SI-BE',
+                                value: false
+                            }
+                        ],
+                        'library': [
+                            {
+                                id: 'LipidBlast',
+                                text: 'LipidBlast',
+                                value: false
+                            },
+                            {
+                                id: 'MassBank',
+                                text: 'MassBank',
+                                value: false
+                            },
+                            {
+                                id: 'VF-NPL',
+                                text: 'VF-NPL',
+                                value: false
+                            },
+                            {
+                                id: 'GNPS',
+                                text: 'GNPS',
+                                value: false
+                            },
+                            {
+                                id: 'RIKEN PlaSMA',
+                                text: 'RIKEN PlaSMA',
+                                value: false
+                            },
+                            {
+                                id: 'ReSpect',
+                                text: 'ReSpect',
+                                value: false
+                            },
+                            {
+                                id: 'FAHFA',
+                                text: 'FAHFA',
+                                value: false
+                            },
+                            {
+                                id: 'Fiehn HILIC',
+                                text: 'Fiehn HILIC',
+                                value: false
+                            },
+                            {
+                                id: 'MetaboBASE',
+                                text: 'MetaboBASE',
+                                value: false
+                            },
+                            {
+                                id: 'FiehnLib',
+                                text: 'FiehnLib',
+                                value: false
+                            },
+                            {
+                                id: 'PathogenBox',
+                                text: 'PathogenBox',
+                                value: false
+                            },
+                            {
+                                id: 'RIKEN OxPLs',
+                                text: 'RIKEN OxPLs',
+                                value: false
+                            },
+                            {
+                                id: 'VolatileFiehnLib',
+                                text: 'Volatile FiehnLib',
+                                value: false
+                            }
+                        ],
+                        'input_type': [
+                            {
+                                id: 'inchiKey',
+                                text: 'InChi Key'
+                            },
+                            {
+                                id: 'molFormula',
+                                text: 'Molecular Formula'
+                            },
+                            {
+                                id: 'exactMass',
+                                text: 'Exact Mass'
+                            }
+                        ],
+                        'mass_spectra_library': [
+                            {
+                                id: 'mona',
+                                text: 'MoNa'
+                            },
+                            {
+                                id: 'massbank_of_europe',
+                                text: 'MassBank of Europe'
+                            }
+                        ]
+                    },
+                },
+
+                methods: {
+
+                    submit() {
+
+                        let data = new FormData();
+                        this.processing = true;
+                        var body = {};
+
+                        for (const [key, items] of Object.entries(this.options)) {
+
+                            let temp = [];
+
+                            if ( key == 'mass_spectra_library' || key == 'input_type' ) {
+
+                                temp.push( key == 'mass_spectra_library' ? this.source : this.input_type );
+
+                            }else {
+
+                                items.forEach( item => {
+
+                                    if ( item.value )
+                                        temp.push( item.id );
+
+                                });
+
+                            }
+
+                            body[key] = temp;
+
+                        }
+
+                        body['tolerance'] = this.tolerance;
+
+                        data.append('filters', JSON.stringify(body));
+                        data.append('file', this.file);
+
+                        this.$request.post(
+                            '/search',
+                            data,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data',
+                                    'X-CSRFToken' : '{{ csrf_token }}'
+                                },
+                            }
+                        )
+                        .then((response) => {
+
+                            this.download = response.data.download;
+
+                        })
+                        .catch(function (error) {
+
+                            Swal.fire(
+                                'Error',
+                                'Unexpected error, please report it so we can fix it, thanks in advanced!',
+                                'error'
+                            );
+
+                        }).finally((response) => {
+                            this.processing = false;
+                        });
+
+                        Swal.fire(
+                            'Success',
+                            'Searching with your criteria started, please wait few minutes for the output!',
+                            'success'
+                        );
+
+                    },
+
+                    selectFile( event ) {
+
+                        this.file = null;
+
+                        let input = event.target;
+
+                        let file = input.files[0];
+                        let extensions = ['txt', 'csv'];
+
+                        if ( extensions.includes( file.name.split('.').pop() ) ) {
+
+                            this.file = file;
+
+                        } else {
+
+                            Swal.fire(
+                                'Error!',
+                                'Sorry, `' + file.name.split('.').pop() + '` is invalid, allowed extensions are: ' + extensions.join(', '),
+                                'error'
+                            )
+
+                        }
+
+                    }
+
+                },
+
+                mounted () {
+
+                    //
+
+                },
+
+            })
+        </script>
+
+    </body>
+</html>
