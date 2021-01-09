@@ -27,7 +27,8 @@ SECRET_KEY = "g8uox23g4u&df6wyc5@)&ck2*gl#5gvn=jsg9&ii_=#bbd@9_h"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["chemoinformatics.herokuapp.com", "127.0.0.1"]
+ALLOWED_HOSTS = ["massspectra.dev",
+                 "chemoinformatics.herokuapp.com", "127.0.0.1"]
 
 
 # Application definition
@@ -137,8 +138,6 @@ STATIC_URL = "/static/"
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR, "assets"),
-    os.path.join(BASE_DIR, "frontend/dist"),
 )
 
 # Simplified static file serving.
