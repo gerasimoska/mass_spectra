@@ -38,7 +38,7 @@ def search_spectra(request):
         return HttpResponse(
             json.dumps(
                 {
-                    "download": "http://127.0.0.1:8000/media/"
+                    "download": "https://massspectra.dev/media/"
                     + str(name).replace(".csv", "_output.csv")
                 }
             )
