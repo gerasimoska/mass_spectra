@@ -49,14 +49,14 @@
         <div id="app">
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-3 border-info">
-                <a class="w-5 navbar-brand" href="/search">MSL-ST</a>
+                <a class="w-5 navbar-brand" href="/search/">MSL-ST</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" href="/search">
+                            <a class="nav-link" href="/search/">
                                 Mass Spectra Search
                                 <span class="sr-only">(current)</span>
                             </a>
@@ -425,6 +425,11 @@
                                 value: false
                             },
                             {
+                                id: 'HMDB',
+                                text: 'HMDB',
+                                value: false
+                            },
+                            {
                                 id: 'ReSpect',
                                 text: 'ReSpect',
                                 value: false
@@ -437,6 +442,11 @@
                             {
                                 id: 'Fiehn HILIC',
                                 text: 'Fiehn HILIC',
+                                value: false
+                            },
+                            {
+                                id: 'EMBL-MCF',
+                                text: 'EMBL-MCF',
                                 value: false
                             },
                             {
@@ -460,7 +470,7 @@
                                 value: false
                             },
                             {
-                                id: 'VolatileFiehnLib',
+                                id: 'Volatile FiehnLib',
                                 text: 'Volatile FiehnLib',
                                 value: false
                             }
@@ -529,7 +539,7 @@
                         data.append('file', this.file);
 
                         this.$request.post(
-                            '/search',
+                            '/search/',
                             data,
                             {
                                 headers: {

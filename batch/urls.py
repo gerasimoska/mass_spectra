@@ -6,5 +6,5 @@ app_name = "batch"
 
 urlpatterns = [
     path("", views.search_spectra, name="upload"),
-    path("download", views.download_csv, name="download"),
+    path("download/", views.download_csv, name="download"),
 ]

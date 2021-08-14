@@ -11,29 +11,29 @@ def scrape_urls_MoNa(
         url_ionMode = ""
     elif len(ionMode) == 1:
         url_ionMode = (
-            ' and (metaData=q=\'name=="ionization mode" and value=="'
+            '+and+(metaData=q=\'name=="ionization+mode"+and+value=="'
             + str(ionMode[0])
             + "\"')"
         )
     else:
         url_ionMode = (
-            'and (metaData=q=\'name=="ionization mode" and value=="positive"\' or '
-            'metaData=q=\'name=="ionization mode" and value=="negative"\')'
+            '+and+(metaData=q=\'name=="ionization+mode"+and+value=="positive"\'+or+'
+            'metaData=q=\'name=="ionization+mode"+and+value=="negative"\')'
         )
 
     if len(msType) == 0:
         url_msType = ""
     elif len(msType) == 1:
         url_msType = (
-            ' and (metaData=q=\'name=="ms level" and value=="' + str(msType[0]) + "\"')"
+            '+and+(metaData=q=\'name=="ms+level"+and+value=="' + str(msType[0]) + "\"')"
         )
     else:
         url_msType = (
-            ' and (metaData=q=\'name=="ms level" and value=="' + str(msType[0]) + "\"'"
+            '+and+(metaData=q=\'name=="ms+level"+and+value=="' + str(msType[0]) + "\"'"
         )
         for ms in msType[1:]:
             url_msType += (
-                ' or metaData=q=\'name=="ms level" and value=="' + str(ms) + "\"'"
+                '+or+metaData=q=\'name=="ms+level"+and+value=="' + str(ms) + "\"'"
             )
         url_msType += ")"
 
@@ -41,22 +41,22 @@ def scrape_urls_MoNa(
         url_sourceIntroduction = ""
     elif len(sourceIntroduction) == 1:
         url_sourceIntroduction = (
-            ' and (tags.text=="' + str(sourceIntroduction[0]) + '") '
+            '+and+(tags.text=="' + str(sourceIntroduction[0]) + '") '
         )
     else:
-        url_sourceIntroduction = ' and (tags.text=="' + str(sourceIntroduction[0]) + '"'
+        url_sourceIntroduction = '+and+(tags.text=="' + str(sourceIntroduction[0]) + '"'
         for s in sourceIntroduction[1:]:
-            url_sourceIntroduction += ' or tags.text=="' + str(s) + '"'
+            url_sourceIntroduction += '+or+tags.text=="' + str(s) + '"'
         url_sourceIntroduction += ") "
 
     if len(library) == 0:
         url_library = ""
     elif len(library) == 1:
-        url_library = ' and (tags.text=="' + str(library[0]) + '")'
+        url_library = '+and+(tags.text=="' + str(library[0]).replace(" ","+") + '")'
     else:
-        url_library = ' and (tags.text=="' + str(library[0]) + '"'
+        url_library = '+and+(tags.text=="' + str(library[0]).replace(" ","+") + '"'
         for l in library[1:]:
-            url_library += ' or tags.text=="' + str(l) + '"'
+            url_library += '+or+tags.text=="' + str(l).replace(" ","+") + '"'
         url_library += ")"
     if "molFormula" in inputType:
         url = (
@@ -73,7 +73,7 @@ def scrape_urls_MoNa(
     elif "inchiKey" in inputType:
         url = (
             "https://mona.fiehnlab.ucdavis.edu/rest/spectra/search?page=0&query=compound.metaData=q='name"
-            '=="InChIKey" and value=="'
+            '=="InChIKey"+and+value=="'
             + input_item
             + "%22%27"
             + url_sourceIntroduction
@@ -85,16 +85,16 @@ def scrape_urls_MoNa(
     else:
         url = (
             "https://mona.fiehnlab.ucdavis.edu/rest/spectra/search?page=0&query=compound.metaData=q='name==\"total "
-            'exact mass" and value >= '
+            'exact+mass"+and+value>= '
             + str(float(input_item) - float(tolerance))
-            + " and value <= "
+            + "+and+value <= "
             + str(float(input_item) + float(tolerance))
             + "'"
             + url_sourceIntroduction
             + url_ionMode
             + url_msType
             + url_library
-            + "&text= "
+            + "&text="
         )
     try:
         res = json.loads(requests.get(url).content.decode("utf-8"))
@@ -487,7 +487,7 @@ def scrape(
     massSpectraLibrary,
 ):
     # reading the input molecular formulas
-    with open(str(fileName), "r") as file:
+    with open(str(fileName), "r", encoding='utf-8-sig') as file:
         lines = file.read()
     lines = lines.split("\n")
 

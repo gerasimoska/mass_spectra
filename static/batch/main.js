@@ -191,6 +191,11 @@ var app = new Vue({
                     value: false
                 },
                 {
+                    id: 'hmdb',
+                    text: 'HMDB',
+                    value: false
+                },
+                {
                     id: 'respect',
                     text: 'ReSpect',
                     value: false
@@ -203,6 +208,11 @@ var app = new Vue({
                 {
                     id: 'fiehn_hilic',
                     text: 'Fiehn HILIC',
+                    value: false
+                },
+                {
+                    id: 'embl_mcf',
+                    text: 'EMBL-MCF',
                     value: false
                 },
                 {
