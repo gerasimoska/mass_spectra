@@ -24,8 +24,8 @@ urlpatterns = [
     path("", views.search),
     path("batch/", include("batch.urls")),
     path("admin/", admin.site.urls),
-    path("about", views.about, name="about"),
-    path("search", batch_views.search_spectra, name="search"),
+    path("about/", views.about, name="about"),
+    path("search/", batch_views.search_spectra, name="search"),
 ]
 
 if settings.DEBUG:

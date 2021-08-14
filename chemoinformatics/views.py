@@ -6,4 +6,4 @@ def about(request):
 
 
 def search(request):
-    return redirect("/search")
+    return redirect("/search/")
